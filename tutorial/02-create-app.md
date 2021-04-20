@@ -1,14 +1,14 @@
 ---
-ms.openlocfilehash: 70df2dfceb1d2df527acfecab894b28019c6febb
-ms.sourcegitcommit: 24bb4b3df6a035806a58b609e1d8078ac5505fa1
+ms.openlocfilehash: 09ef719985094d87c438b6f98b931865dbd59c75
+ms.sourcegitcommit: 8a65c826f6b229c287a782d784b6d9629aa5a3d0
 ms.translationtype: MT
 ms.contentlocale: fr-FR
-ms.lasthandoff: 02/17/2021
-ms.locfileid: "50274293"
+ms.lasthandoff: 04/20/2021
+ms.locfileid: "51899421"
 ---
 <!-- markdownlint-disable MD002 MD041 -->
 
-Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [d’Express](http://expressjs.com/). La solution se compose de deux parties.
+Dans cet exercice, vous allez créer une solution de add-in Office à l'aide [d'Express](http://expressjs.com/). La solution se compose de deux parties.
 
 - Le add-in, implémenté en tant que fichiers HTML et JavaScript statiques.
 - Un Node.js/Express qui sert le add-in et implémente une API web pour récupérer des données pour le add-in.
@@ -21,17 +21,17 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
     yarn init
     ```
 
-    Entrez des valeurs pour les invites selon le cas. Si vous n’êtes pas sûr, les valeurs par défaut sont bonnes.
+    Entrez des valeurs pour les invites selon le cas. Si vous n'êtes pas sûr, les valeurs par défaut sont bonnes.
 
 1. Exécutez les commandes suivantes pour installer les dépendances.
 
     ```Shell
-    yarn add express@4.17.1 express-promise-router@4.0.1 dotenv@8.2.0 node-fetch@2.6.1 jsonwebtoken@8.5.1@
-    yarn add jwks-rsa@1.11.0 @azure/msal-node@1.0.0-beta.1 @microsoft/microsoft-graph-client@2.1.1
-    yarn add date-fns@2.16.1 date-fns-tz@1.0.12 isomorphic-fetch@3.0.0 windows-iana@4.2.1
-    yarn add -D typescript@4.0.5 ts-node@9.0.0 nodemon@2.0.6 @types/node@14.14.7 @types/express@4.17.9
-    yarn add -D @types/node-fetch@2.5.7 @types/jsonwebtoken@8.5.0 @types/microsoft-graph@1.26.0
-    yarn add -D @types/office-js@1.0.147 @types/jquery@3.5.4 @types/isomorphic-fetch@0.0.35
+    yarn add express@4.17.1 express-promise-router@4.1.0 dotenv@8.2.0 node-fetch@2.6.1 jsonwebtoken@8.5.1@
+    yarn add jwks-rsa@2.0.2 @azure/msal-node@1.0.2 @microsoft/microsoft-graph-client@2.2.1
+    yarn add date-fns@2.21.1 date-fns-tz@1.1.4 isomorphic-fetch@3.0.0 windows-iana@5.0.1
+    yarn add -D typescript@4.2.4 ts-node@9.1.1 nodemon@2.0.7 @types/node@14.14.41 @types/express@4.17.11
+    yarn add -D @types/node-fetch@2.5.10 @types/jsonwebtoken@8.5.1 @types/microsoft-graph@1.35.0
+    yarn add -D @types/office-js@1.0.174 @types/jquery@3.5.5 @types/isomorphic-fetch@0.0.35
     ```
 
 1. Exécutez la commande suivante pour générer une tsconfig.jsfichier.
@@ -73,11 +73,11 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
 
     :::code language="ini" source="../demo/graph-tutorial/example.env":::
 
-    Remplacez par le chemin d’accès à localhost.crt et par le chemin d’accès à la sortie `PATH_TO_LOCALHOST.CRT` `PATH_TO_LOCALHOST.KEY` localhost.key par la commande précédente.
+    Remplacez par le chemin d'accès à localhost.crt et par le chemin d'accès à la sortie `PATH_TO_LOCALHOST.CRT` `PATH_TO_LOCALHOST.KEY` localhost.key par la commande précédente.
 
 1. Créez un répertoire à la racine de votre projet nommé **src**.
 
-1. Créez deux répertoires dans le répertoire **./src** : **le addin** et **l’api.**
+1. Créez deux répertoires dans le répertoire **./src** : **le addin** et **l'api.**
 
 1. Créez un fichier nommé **auth.ts** dans le répertoire **./src/api** et ajoutez le code suivant.
 
@@ -134,7 +134,7 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
 
 1. Créez un répertoire dans le répertoire **.src/addin** nommé **assets**.
 
-1. Ajoutez trois fichiers PNG dans ce répertoire, conformément au tableau suivant.
+1. Ajoutez trois fichiers PNG dans ce répertoire selon le tableau suivant.
 
     | Nom de fichier   | Taille en pixels |
     |-------------|----------------|
@@ -143,7 +143,7 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
     | icon-16.png | 16x16          |
 
     > [!NOTE]
-    > Vous pouvez utiliser n’importe quelle image que vous souhaitez pour cette étape. Vous pouvez également télécharger les images utilisées dans cet exemple directement à partir [de GitHub.](https://github.com/microsoftgraph/msgraph-training-office-addin/demo/graph-tutorial/src/addin/assets)
+    > Vous pouvez utiliser n'importe quelle image que vous souhaitez pour cette étape. Vous pouvez également télécharger les images utilisées dans cet exemple directement à partir [de GitHub.](https://github.com/microsoftgraph/msgraph-training-office-addin/demo/graph-tutorial/src/addin/assets)
 
 1. Créez un répertoire à la racine du projet nommé **manifeste**.
 
@@ -151,7 +151,7 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
 
     :::code language="xml" source="../demo/graph-tutorial/manifest/manifest.xml":::
 
-## <a name="side-load-the-add-in-in-excel"></a>Chargement d’une version de version latéral du module dans Excel
+## <a name="side-load-the-add-in-in-excel"></a>Chargement d'une version de version latéral du module dans Excel
 
 1. Démarrez le serveur en exécutant la commande suivante.
 
@@ -161,18 +161,18 @@ Dans cet exercice, vous allez créer une solution de add-in Office à l’aide [
 
 1. Ouvrez votre navigateur et accédez à `https://localhost:3000/taskpane.html` . Vous devriez voir un `Not loaded` message.
 
-1. Dans votre navigateur, Office.com [et](https://www.office.com/) connectez-vous. Sélectionnez **Créer** dans la barre d’outils de gauche, puis sélectionnez **Feuille de calcul.**
+1. Dans votre navigateur, Office.com [et](https://www.office.com/) connectez-vous. Sélectionnez **Créer** dans la barre d'outils de gauche, puis sélectionnez **Feuille de calcul.**
 
-    ![Capture d’écran du menu Créer sur Office.com](images/office-select-excel.png)
+    ![Capture d'écran du menu Créer sur Office.com](images/office-select-excel.png)
 
-1. Sélectionnez **l’onglet** Insérer, puis **sélectionnez Les add-ins Office.**
+1. Sélectionnez **l'onglet** Insérer, puis **sélectionnez Les add-ins Office.**
 
 1. Select **Upload My Add-in,** then select **Browse**. Téléchargez **votre fichier ./manifest/manifest.xml.**
 
-1. Sélectionnez **le bouton Importer** le calendrier sous **l’onglet Accueil** pour ouvrir lepane des tâches.
+1. Sélectionnez **le bouton Importer** le calendrier sous **l'onglet Accueil** pour ouvrir lepane des tâches.
 
-    ![Capture d’écran du bouton Importer le calendrier sous l’onglet Accueil](images/get-started.png)
+    ![Capture d'écran du bouton Importer le calendrier sous l'onglet Accueil](images/get-started.png)
 
 1. Une fois lepane des tâches ouvert, vous devez voir un `Hello World!` message.
 
-    ![Capture d’écran du message Hello World](images/hello-world.png)
+    ![Capture d'écran du message Hello World](images/hello-world.png)
